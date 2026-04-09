@@ -13,10 +13,12 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./AngularProject1
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -26,10 +28,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: /**/package-lock.json
+        cache-dependency-path: ./AngularProject1/package-lock.json
     - run: npm ci
-    - name: Run tests    
-      run: npm run test:ci
-    - name: Run build    
-      run: npm run build
     
+    - name: Run tests 
+      run: npm run test:ci
+    - name: Build
+      run: npm run build

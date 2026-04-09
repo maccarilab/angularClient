@@ -26,10 +26,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: /**/package-lock.json
+        cache-dependency-path: AngularProject1/package-lock.json
+    - name: dir
+      run: dir    
     - run: npm ci
     - name: Run tests    
       run: npm run test:ci
     - name: Run build    
       run: npm run build
+    
     
