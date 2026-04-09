@@ -12,15 +12,23 @@ jobs:
     defaults:
       run:
         working-directory: ./AngularProject1
+        
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-    - uses: actions/checkout@v6    
-    - name: setup
-      uses: actions/setup-node@v6
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
       with:
-        node-version: 24.x
-      
-    - name: Install dependencies
-      run: npm install
-      
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    
+    - name: Run tests 
+      run: npm run test:ci
     - name: Build
-      run:  npm run build
+     run: npm run build
+    
